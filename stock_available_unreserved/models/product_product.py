@@ -28,7 +28,6 @@ class ProductProduct(models.Model):
         return domain_quant
 
     def _compute_product_available_not_res_dict(self):
-
         res = {}
 
         domain_quant = self._prepare_domain_available_not_reserved()
@@ -61,6 +60,8 @@ class ProductProduct(models.Model):
     def _compute_qty_available_not_reserved(self):
         res = self._compute_product_available_not_res_dict()
         for prod in self:
+            # reset the value of the field
+            prod.qty_available_not_res = 0.0
             qty = res[prod.id]["qty_available_not_res"]
             prod.qty_available_not_res = qty
         return res
